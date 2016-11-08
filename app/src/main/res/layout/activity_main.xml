@@ -75,4 +75,17 @@
         android:visibility="gone"
         android:backgroundTint="?android:attr/textColorHighlightInverse" />
 
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/splitSwitch"
+        android:checked="false"
+        android:splitTrack="false"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:layout_marginBottom="14dp"
+        android:text="Split Brush"
+        android:layout_above="@+id/colorButton"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
 </RelativeLayout>

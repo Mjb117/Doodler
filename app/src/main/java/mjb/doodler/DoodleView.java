@@ -24,7 +24,7 @@ public class DoodleView extends View {
     int currentBlue;
     int currentSize;
     int currentOpacity;
-    boolean split = false;
+    boolean split;
 
     private class DrawPiece {
         private Paint mpaintDoodle;
@@ -65,6 +65,7 @@ public class DoodleView extends View {
         currentBlue = 0;
         currentSize = 6;
         currentOpacity = 255;
+        split = false;
         drawList.add(new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path()));
     }
 
@@ -91,20 +92,37 @@ public class DoodleView extends View {
     public boolean onTouchEvent(MotionEvent motionEvent) {
         float touchX = motionEvent.getX();
         float touchY = motionEvent.getY();
+        DrawPiece drawp = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
+        DrawPiece drawp2 = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
+        DrawPiece drawp3 = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
+        DrawPiece drawp4 = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
 
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                DrawPiece drawp = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
                 drawp.getPath().moveTo(touchX, touchY);
                 drawList.add(drawp);
+
                 if (split) {
-                    DrawPiece drawpFlipVert = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
-                    drawp.getPath().moveTo(touchX, touchY);
-                    drawList.add(drawp);
+                    drawp2.getPath().moveTo(this.getWidth() - touchX, touchY);
+                    drawList.add(drawp2);
+
+                    drawp3.getPath().moveTo(touchX, this.getHeight() - touchY);
+                    drawList.add(drawp3);
+
+                    drawp4.getPath().moveTo(this.getWidth() - touchX, this.getHeight() - touchY);
+                    drawList.add(drawp4);
                 }
                 break;
             case MotionEvent.ACTION_MOVE:
-                drawList.get(drawList.size() - 1).getPath().lineTo(touchX, touchY);
+                if (split) {
+                    drawList.get(drawList.size() - 4).getPath().lineTo(touchX, touchY);
+                    drawList.get(drawList.size() - 3).getPath().lineTo(this.getWidth() - touchX, touchY);
+                    drawList.get(drawList.size() - 2).getPath().lineTo(touchX, this.getHeight() - touchY);
+                    drawList.get(drawList.size() - 1).getPath().lineTo(this.getWidth() - touchX, this.getHeight() - touchY);
+                }
+                else {
+                    drawList.get(drawList.size() - 1).getPath().lineTo(touchX, touchY);
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 break;
@@ -137,5 +155,9 @@ public class DoodleView extends View {
 
     public void setOpacityValue(int opacity) {
         currentOpacity = opacity;
+    }
+
+    public void setSplit(boolean splitbool) {
+        split = splitbool;
     }
 }

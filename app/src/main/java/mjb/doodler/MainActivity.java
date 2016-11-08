@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
                     Button clearButton = (Button) findViewById(R.id.clearButton);
                     clearButton.setVisibility(View.VISIBLE);
+
+                    Switch splitSwitch = (Switch) findViewById(R.id.splitSwitch);
+                    splitSwitch.setVisibility(View.VISIBLE);
                 } else {
                     Button colorButton = (Button) findViewById(R.id.colorButton);
                     colorButton.setVisibility(View.GONE);
@@ -49,6 +53,21 @@ public class MainActivity extends AppCompatActivity {
 
                     Button clearButton = (Button) findViewById(R.id.clearButton);
                     clearButton.setVisibility(View.GONE);
+
+                    Switch splitSwitch = (Switch) findViewById(R.id.splitSwitch);
+                    splitSwitch.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        final DoodleView doodleView = (DoodleView) findViewById(R.id.doodleV);
+        Switch splitSwitch = (Switch) findViewById(R.id.splitSwitch);
+        splitSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    doodleView.setSplit(true);
+                } else {
+                    doodleView.setSplit(false);
                 }
             }
         });
