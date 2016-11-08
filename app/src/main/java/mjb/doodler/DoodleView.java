@@ -14,8 +14,8 @@ import android.view.View;
  */
 
 public class DoodleView extends View {
-    private Paint mpaintDoodle = new Paint();
-    private Path mpath = new Path();
+    private static Paint mpaintDoodle = new Paint();
+    private static Path mpath = new Path();
 
     public DoodleView(Context context) {
         super(context);
@@ -63,5 +63,13 @@ public class DoodleView extends View {
 
         invalidate();
         return true;
+    }
+
+    public static void clear(){
+        mpaintDoodle = new Paint();
+        mpath = new Path();
+        mpaintDoodle.setColor(Color.RED);
+        mpaintDoodle.setAntiAlias(true);
+        mpaintDoodle.setStyle(Paint.Style.STROKE);
     }
 }
