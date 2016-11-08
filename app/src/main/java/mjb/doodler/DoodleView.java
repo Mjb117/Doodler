@@ -9,13 +9,40 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Matt on 11/1/2016.
  */
 
 public class DoodleView extends View {
-    private static Paint mpaintDoodle = new Paint();
-    private static Path mpath = new Path();
+
+    List<DrawPiece> drawList = new ArrayList<DrawPiece>();
+    int currentRed;
+    int currentGreen;
+    int currentBlue;
+    int currentSize;
+    int currentOpacity;
+    boolean split = false;
+
+    private class DrawPiece {
+        private Paint mpaintDoodle;
+        private Path mpath;
+
+        public DrawPiece(Paint paint, Path path) {
+            mpaintDoodle = paint;
+            mpath = path;
+        }
+
+        public Paint getPaint() {
+            return mpaintDoodle;
+        }
+
+        public Path getPath() {
+            return mpath;
+        }
+    }
 
     public DoodleView(Context context) {
         super(context);
@@ -33,16 +60,31 @@ public class DoodleView extends View {
     }
 
     private void init(AttributeSet attrs, int defStyle) {
-        mpaintDoodle.setColor(Color.RED);
-        mpaintDoodle.setAntiAlias(true);
-        mpaintDoodle.setStyle(Paint.Style.STROKE);
+        currentRed = 255;
+        currentGreen = 0;
+        currentBlue = 0;
+        currentSize = 6;
+        currentOpacity = 255;
+        drawList.add(new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path()));
+    }
+
+    private Paint createPaint(int red, int green, int blue, int size, int opacity) {
+        Paint paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setARGB(opacity, red, green, blue);
+        paint.setStrokeWidth(size);
+
+        return paint;
     }
 
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        canvas.drawPath(mpath, mpaintDoodle);
+        for (DrawPiece drawP : drawList) {
+            canvas.drawPath(drawP.getPath(), drawP.getPaint());
+        }
     }
 
     @Override
@@ -52,10 +94,17 @@ public class DoodleView extends View {
 
         switch(motionEvent.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                mpath.moveTo(touchX, touchY);
+                DrawPiece drawp = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
+                drawp.getPath().moveTo(touchX, touchY);
+                drawList.add(drawp);
+                if (split) {
+                    DrawPiece drawpFlipVert = new DrawPiece(createPaint(currentRed, currentGreen, currentBlue, currentSize, currentOpacity), new Path());
+                    drawp.getPath().moveTo(touchX, touchY);
+                    drawList.add(drawp);
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
-                mpath.lineTo(touchX, touchY);
+                drawList.get(drawList.size() - 1).getPath().lineTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_UP:
                 break;
@@ -65,11 +114,28 @@ public class DoodleView extends View {
         return true;
     }
 
-    public static void clear(){
-        mpaintDoodle = new Paint();
-        mpath = new Path();
-        mpaintDoodle.setColor(Color.RED);
-        mpaintDoodle.setAntiAlias(true);
-        mpaintDoodle.setStyle(Paint.Style.STROKE);
+    public void clear(){
+        drawList.clear();
+        invalidate();
+    }
+
+    public void setRedValue(int red) {
+        currentRed = red;
+    }
+
+    public void setGreenValue(int green) {
+        currentGreen = green;
+    }
+
+    public void setBlueValue(int blue) {
+        currentBlue = blue;
+    }
+
+    public void setSizeValue(int size) {
+        currentSize = size;
+    }
+
+    public void setOpacityValue(int opacity) {
+        currentOpacity = opacity;
     }
 }
