@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/dialogColorPage">
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -13,7 +15,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/redTextView"
         android:layout_toEndOf="@+id/greenTextView"
-        android:layout_toRightOf="@+id/greenTextView" />
+        android:layout_toRightOf="@+id/greenTextView"
+        android:background="@android:color/darker_gray" />
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -24,7 +27,8 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:max="255"
-        android:layout_toEndOf="@+id/greenTextView" />
+        android:layout_toEndOf="@+id/greenTextView"
+        android:background="@android:color/darker_gray" />
 
     <SeekBar
         android:layout_width="wrap_content"
@@ -36,7 +40,8 @@
         android:layout_alignTop="@+id/blueTextView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:max="255" />
+        android:max="255"
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:text="Set Brush Color"
@@ -49,7 +54,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp" />
+        android:layout_marginStart="20dp"
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:text="Green"
@@ -61,19 +67,10 @@
         android:textSize="24sp"
         android:layout_below="@+id/redTextView"
         android:layout_alignLeft="@+id/colorTextView"
-        android:layout_alignStart="@+id/colorTextView" />
-
-    <TextView
-        android:text="Blue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:id="@+id/blueTextView"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textSize="24sp"
-        android:layout_below="@+id/greenSeekbar"
-        android:layout_alignLeft="@+id/greenTextView"
-        android:layout_alignStart="@+id/greenTextView" />
+        android:layout_alignStart="@+id/colorTextView"
+        android:shadowColor="@android:color/background_light"
+        android:shadowRadius="5"
+        android:background="@android:color/darker_gray" />
 
     <TextView
         android:text="Red"
@@ -85,5 +82,28 @@
         android:textSize="24sp"
         android:layout_below="@+id/colorTextView"
         android:layout_alignLeft="@+id/colorTextView"
-        android:layout_alignStart="@+id/colorTextView" />
+        android:layout_alignStart="@+id/colorTextView"
+        android:backgroundTintMode="src_over"
+        android:shadowColor="@android:color/background_light"
+        android:shadowRadius="10"
+        android:background="@android:color/darker_gray"
+        android:layout_toLeftOf="@+id/redSeekbar"
+        android:layout_toStartOf="@+id/redSeekbar" />
+
+    <TextView
+        android:text="Blue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:id="@+id/blueTextView"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="24sp"
+        android:layout_below="@+id/greenTextView"
+        android:layout_alignRight="@+id/redTextView"
+        android:layout_alignEnd="@+id/redTextView"
+        android:shadowColor="@android:color/background_light"
+        android:shadowRadius="30"
+        android:background="@android:color/darker_gray"
+        android:layout_alignLeft="@+id/greenTextView"
+        android:layout_alignStart="@+id/greenTextView" />
 </RelativeLayout>

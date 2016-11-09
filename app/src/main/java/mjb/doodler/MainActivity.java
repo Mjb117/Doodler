@@ -2,6 +2,7 @@ package mjb.doodler;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.graphics.ColorUtils;
@@ -82,13 +83,19 @@ public class MainActivity extends AppCompatActivity {
     private int saveRed;
     private int saveGreen;
     private int saveBlue;
+    private int progRed;
+    private int progGreen;
+    private int progBlue;
     public void onClickSetColor(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         final DoodleView doodleView = (DoodleView) findViewById(R.id.doodleV);
         saveRed = doodleView.currentRed;
         saveGreen = doodleView.currentGreen;
         saveBlue = doodleView.currentBlue;
+        progRed = saveRed;
+        progGreen = saveGreen;
+        progBlue = saveBlue;
 
         // Get the layout inflater. LayoutInflaters take a layout XML file and create its
         // corresponding View objects. Never create LayoutInflaters directly. Always use the
@@ -97,6 +104,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Inflate the dialog_color.xml layout and create the View
         View dialogView = inflater.inflate(R.layout.dialog_color, null);
+
+        final ViewGroup diaColorView = (ViewGroup)findViewById(R.id.dialogColorPage);
 
         // Get access to the seekbars on this dialog.
         SeekBar redSeekBar = (SeekBar)dialogView.findViewById(R.id.redSeekbar);
@@ -107,56 +116,6 @@ public class MainActivity extends AppCompatActivity {
         greenSeekBar.setProgress(saveGreen);
         blueSeekBar.setProgress(saveBlue);
 
-        redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                doodleView.setRedValue(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-        });
-
-        greenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                doodleView.setGreenValue(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-        });
-
-        blueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                doodleView.setBlueValue(progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                //not implemented
-            }
-        });
 
         // This is the method that allows us to use our own custom view. We set the AlertDialog builder
         // to the view we created with the inflater above.
@@ -176,7 +135,68 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-        AlertDialog alertDialog = builder.create();
+
+        final AlertDialog alertDialog = builder.create();
+
+        redSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                doodleView.setRedValue(progress);
+                progRed = progress;
+
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(progRed, progGreen, progBlue)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+        });
+
+        greenSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                doodleView.setGreenValue(progress);
+                progGreen = progress;
+
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(progRed, progGreen, progBlue)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+        });
+
+        blueSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                doodleView.setBlueValue(progress);
+                progBlue = progress;
+
+                alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.rgb(progRed, progGreen, progBlue)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                //not implemented
+            }
+        });
         alertDialog.show();
     }
 
@@ -232,7 +252,6 @@ public class MainActivity extends AppCompatActivity {
                         doodleView.setSizeValue(saveSize);
                     }
                 });
-
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
