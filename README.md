@@ -20,6 +20,9 @@ http://stackoverflow.com/questions/18022364/how-to-convert-rgb-color-to-int-in-j
 http://stackoverflow.com/questions/18470538/toggle-button-doesnt-work-at-the-first-time-on-android
 http://stackoverflow.com/questions/24523110/how-to-show-hide-layout-on-button-click
 
+Dr. Jon Froehlich
+Drawing functionality, alertdialogs, and more
+
 Design Inspiration from past course designs:
 Eddie Krahe: color selection arrangement with title and sliders.
 Thomas McHale: Color previewing
