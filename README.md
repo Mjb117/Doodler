@@ -7,7 +7,7 @@ Clicking cancel will revert the changes selected.
 
 The app was tested using a Nexus 4 API 24.
 The features are color selection (using rgb sliders), brush size selection (slider), opacity selection (slider),
-and brush split into brushes, mirrored horizontally, vertically, and diagonally (one mirroring for each brush).
+and brush split into brushes, mirrored horizontally, vertically, and diagonally (one mirroring for each brush).  Erase functionality is not intuitive, however, it can be accomplished by selecting a white drawing tool from the color dialog.
 List:
   Color
   Size
