@@ -33,3 +33,5 @@ Design Inspiration from past course designs:
 Eddie Krahe: color selection arrangement with title and sliders.
 Thomas McHale: Color previewing
 Thomas McHale and http://weavesilk.com/: Splitting/mirroring brush.
+
+Here is my demo video: https://youtu.be/GrtVgvb0Ags
