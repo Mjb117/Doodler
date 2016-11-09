@@ -8,6 +8,12 @@ Clicking cancel will revert the changes selected.
 The app was tested using a Nexus 4 API 24.
 The features are color selection (using rgb sliders), brush size selection (slider), opacity selection (slider),
 and brush split into brushes, mirrored horizontally, vertically, and diagonally (one mirroring for each brush).
+List:
+  Color
+  Size
+  Opacity
+  Clear
+  Split/Mirror
 
 References:
 Android developer documentation, including Views, Color, AlertDialog, and Path
